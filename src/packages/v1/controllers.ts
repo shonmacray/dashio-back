@@ -13,9 +13,12 @@ class Api {
         const data = req.body
         const results = validationResult(req)
         if (results.isEmpty()) {
-            return res.json(data)
-
-            // const data = await service.createUser(user)
+            const user = await service.getUser(data)
+            if (!user) {
+                const newUser = await service.createUser(data)
+                return res.json(newUser)
+            }
+            return res.json({ errors: "user exists" })
         }
         return res.json({ errors: results.array() })
 
