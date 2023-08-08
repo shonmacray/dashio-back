@@ -7,3 +7,8 @@ export const CreateValidation = [
     body('email').isString().notEmpty().trim(),
     body('password').isString().notEmpty().trim(),
 ]
+
+export const LoginValidation = [
+    body('email').isString().notEmpty().trim(),
+    body('password').isString().notEmpty().trim(),
+]

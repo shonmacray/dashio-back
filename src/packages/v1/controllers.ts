@@ -10,11 +10,11 @@ class Api {
         return res.json(user)
     }
 
-    createUser = async (req: Request, res: Response) => {
+    createUser = async (req: Request, res: Response): Promise<Response> => {
         const data = req.body
         const results = validationResult(req)
         if (results.isEmpty()) {
-            const user = await service.getUser(data)
+            const user = await service.getUser({ email: data.email })
             if (!user) {
                 // hash password
                 const password = new Password()
@@ -29,6 +29,26 @@ class Api {
         }
         return res.json({ errors: results.array() })
 
+    }
+
+    loginWithEmail = async (req: Request, res: Response): Promise<Response> => {
+        const results = validationResult(req)
+        if (results.isEmpty()) {
+            const { password, email } = req.body
+            const user = await service.getUser({ email })
+            if (!user) {
+                return res.json({ error: "user not found" })
+            }
+            const pwd = new Password()
+            const isTheSame = await pwd.compare(password, user.password)
+
+            if (!isTheSame) {
+                return res.json({ error: "username/password is wrong" })
+            }
+
+            return res.json({ sjje: "get user and token" })
+        }
+        return res.json({ errors: results.array() })
     }
 
 }

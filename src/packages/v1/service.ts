@@ -3,8 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
 
 class Service {
-    getUser = async (data: any) => {
-        return await prisma.user.findUnique({ where: { email: data.email } })
+    getUser = async (where: any) => {
+        return await prisma.user.findUnique({ where: where })
     }
 
     createUser = async (data: any) => {
