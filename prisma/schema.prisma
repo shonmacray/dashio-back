@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(uuid())
   email       String    @unique
   password    String
   firstName   String
@@ -27,9 +27,9 @@ model User {
 }
 
 model Header{
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  user        User    @relation(fields: [userId], references: [id])
-  userId      String  @db.ObjectId @unique
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @unique
   contact     String
   jobTitle    String
   CityCountry String
@@ -40,9 +40,9 @@ model Header{
 }
 
 model Project{
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  user        User    @relation(fields: [userId], references: [id])
-  userId      String  @db.ObjectId @unique
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @unique
   name        String
   startDate   String
   endDate     String
@@ -53,9 +53,9 @@ model Project{
 }
 
 model Experience{
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  user        User    @relation(fields: [userId], references: [id])
-  userId      String  @db.ObjectId @unique
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @unique
   title       String
   company     String
   startDate   String
@@ -67,9 +67,9 @@ model Experience{
 }
 
 model Education{
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  user        User    @relation(fields: [userId], references: [id])
-  userId      String  @db.ObjectId @unique
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @unique
   school      String
   certificate String
   startDate   String
@@ -81,9 +81,9 @@ model Education{
 }
 
 model Award{
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  user        User    @relation(fields: [userId], references: [id])
-  userId      String  @db.ObjectId @unique
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @unique
   award       String
   decsription String
   created_at  DateTime  @default(now())

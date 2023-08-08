@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator"
 import service from "./service"
+import Password from "../common/password";
 
 class Api {
 
     getUser = async (_req: Request, res: Response) => {
-        const user = await service.getUser({ email: "shon@yahoo.com" })
+        const user = await service.getUser({ email: "shonmacray@yahoo.com" })
         return res.json(user)
     }
 
@@ -15,6 +16,12 @@ class Api {
         if (results.isEmpty()) {
             const user = await service.getUser(data)
             if (!user) {
+                // hash password
+                const password = new Password()
+                data.password = await password.hash(data.password)
+
+                // generate jwt
+
                 const newUser = await service.createUser(data)
                 return res.json(newUser)
             }
