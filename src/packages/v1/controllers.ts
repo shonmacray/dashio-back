@@ -20,9 +20,9 @@ class Api {
                 const password = new Password()
                 data.password = await password.hash(data.password)
 
-                // generate jwt
+                const newUser: any = await service.createUser(data)
+                delete newUser.password
 
-                const newUser = await service.createUser(data)
                 return res.json(newUser)
             }
             return res.json({ errors: "user exists" })
