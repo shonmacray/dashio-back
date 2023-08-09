@@ -24,7 +24,7 @@ class Api {
                 const password = new Password()
                 data.password = await password.hash(data.password)
 
-                const newUser: any = await service.createUser(data)
+                const newUser: any = await service.createUser({ ...data, sections: ["HEADER", "SKILLS"] })
                 delete newUser.password
 
                 return res.json(newUser)
@@ -39,7 +39,7 @@ class Api {
         const results = validationResult(req)
         if (results.isEmpty()) {
             const { password, email } = req.body
-            const user = await service.getUser({ email })
+            const user: any = await service.getUser({ email })
             if (!user) {
                 return res.json({ error: "user not found" })
             }
@@ -52,7 +52,8 @@ class Api {
             const jwt = new JWT()
             const token = await jwt.sign(user.id, user.email)
 
-            return res.json({ token })
+            delete user.password
+            return res.json({ token, user })
         }
         return res.json({ errors: results.array() })
     }
