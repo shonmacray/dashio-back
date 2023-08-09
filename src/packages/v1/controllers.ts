@@ -10,7 +10,8 @@ class Api {
         // get user from middleware
         const { id } = res.locals.user;
 
-        const user = await service.getUser({ id })
+        const user: any = await service.getUser({ id })
+        delete user.password
         return res.json(user)
     }
 
@@ -56,6 +57,30 @@ class Api {
             return res.json({ token, user })
         }
         return res.json({ errors: results.array() })
+    }
+
+    addSection = async (req: Request, res: Response): Promise<Response> => {
+        const results = validationResult(req)
+        if (results.isEmpty()) {
+            const { id } = res.locals.user
+            const { name } = req.body
+            try {
+                const section = await service.getUser({ id, sections: { has: name } })
+                if (!section) {
+                    const user = await service.updateUser({ id }, { sections: { push: name } })
+                    if (user) {
+                        return res.json({ success: true })
+                    }
+                } else {
+                    return res.json({ success: false })
+                }
+
+            } catch (error) {
+                return res.json({ success: false })
+            }
+
+        }
+        return res.json({ error: results.array() })
     }
 
 }
