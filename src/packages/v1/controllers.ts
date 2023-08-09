@@ -2,11 +2,15 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator"
 import service from "./service"
 import Password from "../common/password";
+import JWT from "../common/jwt";
 
 class Api {
 
     getUser = async (_req: Request, res: Response) => {
-        const user = await service.getUser({ email: "shonmacray@yahoo.com" })
+        // get user from middleware
+        const { id } = res.locals.user;
+
+        const user = await service.getUser({ id })
         return res.json(user)
     }
 
@@ -45,8 +49,10 @@ class Api {
             if (!isTheSame) {
                 return res.json({ error: "username/password is wrong" })
             }
+            const jwt = new JWT()
+            const token = await jwt.sign(user.id, user.email)
 
-            return res.json({ sjje: "get user and token" })
+            return res.json({ token })
         }
         return res.json({ errors: results.array() })
     }
