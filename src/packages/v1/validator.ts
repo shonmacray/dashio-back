@@ -15,3 +15,7 @@ export const LoginValidation = [
 export const SectionValidation = [
     body('name').isString().notEmpty().trim(),
 ]
+
+export const SkillValidation = [
+    body('skill').isString().notEmpty().trim(),
+]

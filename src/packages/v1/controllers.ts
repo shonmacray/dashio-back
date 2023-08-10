@@ -113,6 +113,58 @@ class Api {
         return res.json({ error: results.array() })
     }
 
+    addSkill = async (req: Request, res: Response): Promise<Response> => {
+        const results = validationResult(req)
+        if (results.isEmpty()) {
+            const { id } = res.locals.user
+            const { skill } = req.body
+            try {
+                const userSkill = await service.getUser({ id, skills: { has: skill } })
+                if (!userSkill) {
+                    const user = await service.updateUser({ id }, { skills: { push: skill } })
+                    if (user) {
+                        return res.json({ success: true })
+                    }
+                } else {
+                    return res.json({ success: false })
+                }
+
+            } catch (error) {
+                return res.json({ success: false })
+            }
+
+        }
+        return res.json({ error: results.array() })
+    }
+    removeSkill = async (req: Request, res: Response): Promise<Response> => {
+        const results = validationResult(req)
+        if (results.isEmpty()) {
+            const { id } = res.locals.user
+            const { skill } = req.body
+            try {
+                const userSkill = await service.getUser({ id, skills: { has: skill } })
+                if (userSkill) {
+                    const skills = [...userSkill.skills]
+
+                    const index = skills.findIndex((ski) => ski === skill)
+                    skills.splice(index, 1)
+
+                    const user = await service.updateUser({ id }, { skills })
+                    if (user) {
+                        return res.json({ success: true })
+                    }
+                } else {
+                    return res.json({ success: false })
+                }
+
+            } catch (error) {
+                return res.json({ success: false })
+            }
+
+        }
+        return res.json({ error: results.array() })
+    }
+
 }
 
 const api = new Api()
