@@ -11,7 +11,9 @@ class Api {
         const { id } = res.locals.user;
 
         const user: any = await service.getUser({ id })
-        delete user.password
+        if (user) {
+            delete user.password
+        }
         return res.json(user)
     }
 
@@ -68,6 +70,34 @@ class Api {
                 const section = await service.getUser({ id, sections: { has: name } })
                 if (!section) {
                     const user = await service.updateUser({ id }, { sections: { push: name } })
+                    if (user) {
+                        return res.json({ success: true })
+                    }
+                } else {
+                    return res.json({ success: false })
+                }
+
+            } catch (error) {
+                return res.json({ success: false })
+            }
+
+        }
+        return res.json({ error: results.array() })
+    }
+    removeSection = async (req: Request, res: Response): Promise<Response> => {
+        const results = validationResult(req)
+        if (results.isEmpty()) {
+            const { id } = res.locals.user
+            const { name } = req.body
+            try {
+                const section = await service.getUser({ id, sections: { has: name } })
+                if (section) {
+                    const sections = [...section.sections]
+
+                    const index = sections.findIndex((section) => section === name)
+                    sections.splice(index, 1)
+
+                    const user = await service.updateUser({ id }, { sections })
                     if (user) {
                         return res.json({ success: true })
                     }

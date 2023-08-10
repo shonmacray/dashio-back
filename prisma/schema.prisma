@@ -11,8 +11,8 @@ model User {
   id          String    @id @default(uuid())
   email       String    @unique
   password    String
-  firstName   String
-  lastName    String
+  first_name   String
+  last_name    String
   sections    Section[]
   header      Header?
   skills      String[]
@@ -28,11 +28,11 @@ model User {
 
 model Header{
   id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      String    @unique
   contact     String
-  jobTitle    String
-  CityCountry String
+  job_title    String
+  city_country String
   linkedIn    String
   twitter     String
   bio         String
@@ -41,11 +41,11 @@ model Header{
 
 model Project{
   id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      String    @unique
   name        String
-  startDate   String
-  endDate     String
+  start_date   String
+  end_date     String
   decsription String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -54,12 +54,12 @@ model Project{
 
 model Experience{
   id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      String    @unique
   title       String
   company     String
-  startDate   String
-  endDate     String
+  start_date   String
+  end_date     String
   decsription String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -68,12 +68,12 @@ model Experience{
 
 model Education{
   id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      String    @unique
   school      String
   certificate String
-  startDate   String
-  endDate     String
+  start_date   String
+  end_date     String
   decsription String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
@@ -82,8 +82,8 @@ model Education{
 
 model Award{
   id          String    @id @default(uuid())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String    @unique
+  user        User      @relation(fields: [user_id], references: [id])
+  user_id      String    @unique
   award       String
   decsription String
   created_at  DateTime  @default(now())
