@@ -1,21 +1,31 @@
 import { body } from "express-validator";
 
-export const CreateValidation = [
-    body('first_name').isString().notEmpty().trim(),
-    body('last_name').isString().notEmpty().trim(),
-    body('email').isString().notEmpty().trim(),
-    body('password').isString().notEmpty().trim(),
-]
+const VALIDATION = {
+    CreateUser: [
+        body('first_name').isString().notEmpty().trim(),
+        body('last_name').isString().notEmpty().trim(),
+        body('email').isString().notEmpty().trim(),
+        body('password').isString().notEmpty().trim(),
+    ],
+    Login: [
+        body('email').isString().notEmpty().trim(),
+        body('password').isString().notEmpty().trim(),
+    ],
+    Section: [
+        body('name').isString().notEmpty().trim(),
+    ],
+    Skill: [
+        body('skill').isString().notEmpty().trim(),
+    ],
+    header: [
+        body('contact').isString().notEmpty().trim(),
+        body('city_country').isString().notEmpty().trim(),
+        body('job_title').isString().notEmpty().trim(),
+        body('linkedIn').isString().notEmpty().trim(),
+        body('twitter').isString().notEmpty().trim(),
+        body('bio').isString().notEmpty().trim(),
+    ]
 
-export const LoginValidation = [
-    body('email').isString().notEmpty().trim(),
-    body('password').isString().notEmpty().trim(),
-]
+}
 
-export const SectionValidation = [
-    body('name').isString().notEmpty().trim(),
-]
-
-export const SkillValidation = [
-    body('skill').isString().notEmpty().trim(),
-]
+export default VALIDATION;
