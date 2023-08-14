@@ -24,6 +24,26 @@ const VALIDATION = {
         body('linkedIn').isString().notEmpty().trim(),
         body('twitter').isString().notEmpty().trim(),
         body('bio').isString().notEmpty().trim(),
+    ],
+    project: [
+        body('name').isString().notEmpty().trim(),
+        body('start_date').isString().notEmpty().trim(),
+        body('end_date').isString().notEmpty().trim(),
+        body('description').isString().notEmpty().trim(),
+    ],
+    experience: [
+        body('title').isString().notEmpty().trim(),
+        body('company').isString().notEmpty().trim(),
+        body('start_date').isString().notEmpty().trim(),
+        body('end_date').isString().notEmpty().trim(),
+        body('description').isString().notEmpty().trim(),
+    ],
+    education: [
+        body('school').isString().notEmpty().trim(),
+        body('certificate').isString().notEmpty().trim(),
+        body('start_date').isString().notEmpty().trim(),
+        body('end_date').isString().notEmpty().trim(),
+        body('description').isString().notEmpty().trim(),
     ]
 
 }

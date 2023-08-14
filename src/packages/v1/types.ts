@@ -8,3 +8,34 @@ export interface IHeader {
     twitter: string;
     bio: string;
 }
+
+export interface IProject {
+    id?: string;
+    user_id: string;
+    name: string;
+    start_date: string;
+    end_date: string;
+    description: string;
+}
+
+export interface IExperience {
+    id?: string;
+    user_id: string;
+    title: string;
+    company: string;
+    start_date: string;
+    end_date: string;
+    description: string;
+}
+
+export interface IEducation {
+    id?: string;
+    user_id: string;
+    school: string;
+    certificate: string;
+    start_date: string;
+    end_date: string;
+    description: string;
+}
+
+export type ISection = "project" | "experience" | "education"

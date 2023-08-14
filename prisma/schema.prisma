@@ -8,11 +8,11 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  email       String    @unique
+  id          String       @id @default(uuid())
+  email       String       @unique
   password    String
-  first_name   String
-  last_name    String
+  first_name  String
+  last_name   String
   sections    Section[]
   header      Header?
   skills      String[]
@@ -21,73 +21,79 @@ model User {
   experiences Experience[]
   education   Education[]
   award       Award[]
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @updatedAt
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+
   @@map("user")
 }
 
-model Header{
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      String    @unique
-  contact     String
+model Header {
+  id           String @id @default(uuid())
+  user         User   @relation(fields: [user_id], references: [id])
+  user_id      String @unique
+  contact      String
   job_title    String
   city_country String
-  linkedIn    String
-  twitter     String
-  bio         String
+  linkedIn     String
+  twitter      String
+  bio          String
+
   @@map("header")
 }
 
-model Project{
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      String    @unique
+model Project {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
   name        String
-  start_date   String
-  end_date     String
-  decsription String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  start_date  String
+  end_date    String
+  description String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
   @@map("project")
 }
 
-model Experience{
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      String    @unique
+model Experience {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
   title       String
   company     String
-  start_date   String
-  end_date     String
-  decsription String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  start_date  String
+  end_date    String
+  description String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
   @@map("experience")
 }
 
-model Education{
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      String    @unique
+model Education {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
   school      String
   certificate String
-  start_date   String
-  end_date     String
-  decsription String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  start_date  String
+  end_date    String
+  description String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
   @@map("education")
 }
 
-model Award{
-  id          String    @id @default(uuid())
-  user        User      @relation(fields: [user_id], references: [id])
-  user_id      String    @unique
+model Award {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String
   award       String
-  decsription String
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  description String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
   @@map("award")
 }
 
