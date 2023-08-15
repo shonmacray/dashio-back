@@ -5,7 +5,8 @@ const prisma = new PrismaClient()
 
 class Controller {
     getUser = async (where: any) => await prisma.user.findUnique({
-        where: where, include: {
+        where,
+        include: {
             header: true,
             projects: true,
             education: true,
@@ -14,13 +15,12 @@ class Controller {
     })
 
     createUser = async (data: any) => await prisma.user.create({ data })
-
     updateUser = async (where: any, data: any) => await prisma.user.update({ where, data })
 
-    createHeader = async (data: IHeader): Promise<IHeader> => {
-        return await prisma.header.create({ data })
-    }
-    // edit header
+
+    // header
+    createHeader = async (data: IHeader): Promise<IHeader> => await prisma.header.create({ data })
+    updateHeader = async (id: string, data: IHeader): Promise<IHeader> => await prisma.header.update({ where: { id }, data })
 
     // project
 

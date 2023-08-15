@@ -27,6 +27,9 @@ class Section {
                 case 'education':
                     return res.json({ data: await controller.createEducation({ ...data, user_id: id }) })
 
+                case 'header':
+                    return res.json({ data: await controller.createHeader({ ...data, user_id: id }) })
+
                 default:
                     return;
             }
@@ -59,6 +62,13 @@ class Section {
                 case 'education':
                     try {
                         return res.json({ data: await controller.updateEducation(paramId, data) })
+                    } catch {
+                        return res.json({ error: ERRORS.NotFound.message })
+                    }
+
+                case 'header':
+                    try {
+                        return res.json({ data: await controller.updateHeader(paramId, data) })
                     } catch {
                         return res.json({ error: ERRORS.NotFound.message })
                     }

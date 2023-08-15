@@ -38,4 +38,4 @@ export interface IEducation {
     description: string;
 }
 
-export type ISection = "project" | "experience" | "education"
+export type ISection = "project" | "experience" | "education" | "header"
