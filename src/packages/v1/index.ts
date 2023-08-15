@@ -21,8 +21,14 @@ version1.post("/user/header", JWTMiddleware, VALIDATION.header, header.createHea
 // sections
 
 version1.post("/user/project", JWTMiddleware, VALIDATION.project, project.create)
+version1.put("/user/project/:id", JWTMiddleware, [...VALIDATION.project, VALIDATION.id], project.update)
+version1.delete("/user/project/:id", JWTMiddleware, VALIDATION.id, project.delete)
 version1.post("/user/experience", JWTMiddleware, VALIDATION.experience, experience.create)
+version1.put("/user/experience/:id", JWTMiddleware, [...VALIDATION.experience, VALIDATION.id], experience.update)
+version1.delete("/user/experience/:id", JWTMiddleware, VALIDATION.id, experience.delete)
 version1.post("/user/education", JWTMiddleware, VALIDATION.education, education.create)
+version1.put("/user/education/:id", JWTMiddleware, [...VALIDATION.education, VALIDATION.id], education.update)
+version1.delete("/user/education/:id", JWTMiddleware, VALIDATION.id, education.delete)
 // auth
 version1.post("/user", VALIDATION.CreateUser, api.createUser)
 version1.post("/login", VALIDATION.Login, api.loginWithEmail)

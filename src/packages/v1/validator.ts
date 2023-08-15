@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 const VALIDATION = {
     CreateUser: [
@@ -44,7 +44,8 @@ const VALIDATION = {
         body('start_date').isString().notEmpty().trim(),
         body('end_date').isString().notEmpty().trim(),
         body('description').isString().notEmpty().trim(),
-    ]
+    ],
+    id: param('id').isString().notEmpty().trim()
 
 }
 

@@ -22,19 +22,24 @@ class Controller {
     }
     // edit header
 
-    createProject = async (data: IProject): Promise<IProject> => {
-        console.log(data);
+    // project
 
-        return await prisma.project.create({ data })
-    }
+    createProject = async (data: IProject): Promise<IProject> => await prisma.project.create({ data })
+    updateProject = async (id: string, data: IProject): Promise<IProject> => await prisma.project.update({ where: { id }, data })
+    deleteProject = async (id: string): Promise<any> => await prisma.project.delete({ where: { id } })
 
-    createExperience = async (data: IExperience): Promise<IExperience> => {
-        return await prisma.experience.create({ data })
-    }
+    // experience
 
-    createEducation = async (data: IEducation): Promise<IEducation> => {
-        return await prisma.education.create({ data })
-    }
+    createExperience = async (data: IExperience): Promise<IExperience> => await prisma.experience.create({ data })
+    updateExperience = async (id: string, data: IExperience): Promise<IExperience> => await prisma.experience.update({ where: { id }, data })
+    deleteExperience = async (id: string): Promise<IExperience> => await prisma.experience.delete({ where: { id } })
+
+    // education
+
+    createEducation = async (data: IEducation): Promise<IEducation> => await prisma.education.create({ data })
+    updateEducation = async (id: string, data: IEducation): Promise<IEducation> => await prisma.education.update({ where: { id }, data })
+    deleteEducation = async (id: string): Promise<IEducation> => await prisma.education.delete({ where: { id } })
+
 
 }
 
