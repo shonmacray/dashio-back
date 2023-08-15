@@ -1,7 +1,6 @@
 import express from "express"
 import { JWTMiddleware } from "../common/jwt"
 import VALIDATION from "./validator"
-// import header from "./services/header.service"
 import api from "./services/service"
 import Section from "./services/sections.service"
 
