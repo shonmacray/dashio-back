@@ -17,6 +17,9 @@ const VALIDATION = {
     Skill: [
         body('skill').isString().notEmpty().trim(),
     ],
+    language: [
+        body('language').isString().notEmpty().trim(),
+    ],
     header: [
         body('contact').isString().notEmpty().trim(),
         body('city_country').isString().notEmpty().trim(),

@@ -46,3 +46,4 @@ export interface IAward {
 }
 
 export type ISection = "project" | "experience" | "education" | "header" | "award"
+export type IUserParts = "languages" | "skills" | "sections"

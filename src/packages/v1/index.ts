@@ -3,6 +3,7 @@ import { JWTMiddleware } from "../common/jwt"
 import VALIDATION from "./validator"
 import api from "./services/service"
 import Section from "./services/sections.service"
+import User from "./services/user.service"
 
 const version1 = express.Router()
 
@@ -12,11 +13,18 @@ const education = new Section("education")
 const header = new Section("header")
 const award = new Section("award")
 
+const language = new User("languages")
+const section = new User("sections")
+const skill = new User("skills")
+
+// user
 version1.get("/user", JWTMiddleware, api.getUser)
-version1.post("/user/section", JWTMiddleware, VALIDATION.Section, api.addSection)
-version1.delete("/user/section", JWTMiddleware, VALIDATION.Section, api.removeSection)
-version1.post("/user/skill", JWTMiddleware, VALIDATION.Skill, api.addSkill)
-version1.delete("/user/skill", JWTMiddleware, VALIDATION.Skill, api.removeSkill)
+version1.post("/user/languages", JWTMiddleware, VALIDATION.language, language.add)
+version1.delete("/user/languages", JWTMiddleware, VALIDATION.language, language.remove)
+version1.post("/user/section", JWTMiddleware, VALIDATION.Section, section.add)
+version1.delete("/user/section", JWTMiddleware, VALIDATION.Section, section.remove)
+version1.post("/user/skill", JWTMiddleware, VALIDATION.Skill, skill.add)
+version1.delete("/user/skill", JWTMiddleware, VALIDATION.Skill, skill.remove)
 
 // sections
 version1.post("/user/header", JWTMiddleware, VALIDATION.header, header.create)
@@ -40,3 +48,6 @@ version1.post("/login", VALIDATION.Login, api.loginWithEmail)
 
 
 export default version1
+
+
+// handle expired tokens
