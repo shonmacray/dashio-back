@@ -38,4 +38,11 @@ export interface IEducation {
     description: string;
 }
 
-export type ISection = "project" | "experience" | "education" | "header"
+export interface IAward {
+    id?: string;
+    user_id: string;
+    award: string;
+    description: string;
+}
+
+export type ISection = "project" | "experience" | "education" | "header" | "award"

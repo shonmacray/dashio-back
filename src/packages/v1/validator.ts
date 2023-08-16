@@ -45,6 +45,10 @@ const VALIDATION = {
         body('end_date').isString().notEmpty().trim(),
         body('description').isString().notEmpty().trim(),
     ],
+    award: [
+        body('award').isString().notEmpty().trim(),
+        body('description').isString().notEmpty().trim(),
+    ],
     id: param('id').isString().notEmpty().trim()
 
 }

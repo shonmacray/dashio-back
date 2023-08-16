@@ -10,6 +10,7 @@ const project = new Section("project")
 const experience = new Section("experience")
 const education = new Section("education")
 const header = new Section("header")
+const award = new Section("award")
 
 version1.get("/user", JWTMiddleware, api.getUser)
 version1.post("/user/section", JWTMiddleware, VALIDATION.Section, api.addSection)
@@ -29,6 +30,9 @@ version1.delete("/user/experience/:id", JWTMiddleware, VALIDATION.id, experience
 version1.post("/user/education", JWTMiddleware, VALIDATION.education, education.create)
 version1.put("/user/education/:id", JWTMiddleware, [...VALIDATION.education, VALIDATION.id], education.update)
 version1.delete("/user/education/:id", JWTMiddleware, VALIDATION.id, education.delete)
+version1.post("/user/award", JWTMiddleware, VALIDATION.award, award.create)
+version1.put("/user/award/:id", JWTMiddleware, [...VALIDATION.award, VALIDATION.id], award.update)
+version1.delete("/user/award/:id", JWTMiddleware, VALIDATION.id, award.delete)
 
 // auth
 version1.post("/user", VALIDATION.CreateUser, api.createUser)
