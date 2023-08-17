@@ -1,6 +1,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken"
+import { ERRORS } from "./constants";
 
 interface IError {
     error: string;
@@ -15,7 +16,7 @@ class JWT {
      */
     private secret: string = 'anybosswo'
 
-    sign = async (id: string, email: string): Promise<string> => jwt.sign({ id, email }, this.secret)
+    sign = async (id: string, email: string): Promise<string> => jwt.sign({ id, email }, this.secret, { expiresIn: "1d" })
 
     verify = async (token: string): Promise<IDecode | IError | null> => {
         try {
@@ -23,8 +24,13 @@ class JWT {
             if (decode) {
                 return decode
             }
-        } catch (error) {
-            return { error: "invalid token" }
+        } catch (e) {
+            // check error
+            if (e instanceof jwt.TokenExpiredError) {
+                return { error: ERRORS.jwtExpired }
+            }
+
+            return { error: ERRORS.jwtInvalid }
         }
 
         return null
